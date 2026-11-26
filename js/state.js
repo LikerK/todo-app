@@ -1,4 +1,5 @@
-const STATUSES = ['new', 'in-progress', 'done'];
+import { STATUSES } from './constants.js';
+
 
 const state = {
   tasks: [],

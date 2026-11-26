@@ -32,9 +32,11 @@ const createTaskElement = (task) => {
   });
 
   taskElement.classList.add('task');
+  taskElement.dataset.id = task.id;
   title.textContent = task.title;
   selectStatus.value = task.status;
   removeButton.textContent = 'Удалить';
+  removeButton.classList.add('remove-task-btn');
 
   taskElement.appendChild(title);
   taskElement.appendChild(selectStatus);

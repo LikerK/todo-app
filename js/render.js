@@ -2,6 +2,14 @@ import { STATUSES, STATUS_LABELS } from './constants.js';
 
 export const renderTasks = (tasks, container) => {
   container.innerHTML = '';
+
+  if (!tasks.length) {
+    const message = document.createElement('span');
+    message.textContent = 'Не найдено ни одной задачи :(';
+    container.appendChild(message);
+    return;
+  }
+
   tasks.forEach((task) => {
     const taskElement = createTaskElement(task);
     container.appendChild(taskElement);
@@ -35,7 +43,7 @@ const createTaskElement = (task) => {
   taskElement.dataset.id = task.id;
   title.textContent = task.title;
   selectStatus.value = task.status;
-  selectStatus.classList.add('task-status')
+  selectStatus.classList.add('task-status');
   removeButton.textContent = 'Удалить';
   removeButton.classList.add('remove-task-btn');
 

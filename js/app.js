@@ -2,8 +2,17 @@ import { addTask, removeTask, setStatusTask, setFilterTask, getVisibleTasks } fr
 import { renderTasks } from './render.js';
 
 const taskForm = document.getElementById('task-form');
+const taskInput = document.getElementById('task-input');
 const tasksContainer = document.getElementById('tasks');
 const statusFilter = document.getElementById('status-filter');
+const errorSpan = document.getElementById('task-error');
+
+const validate = (value) => {
+  const isValid = value.trim().length > 0;
+  errorSpan.textContent = isValid ? '' : 'Поле не должно быть пустым';
+  taskInput.setAttribute('aria-invalid', String(!isValid));
+  return isValid;
+}
 
 const updateView = () => {
   const visibleTasks = getVisibleTasks();
@@ -12,11 +21,12 @@ const updateView = () => {
 
 taskForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  taskForm.reset();
   const formData = new FormData(taskForm);
-  const title = formData.get('title');
+  const title = formData.get('title') ?? '';
+  if (!validate(title)) return
   addTask(title);
   updateView();
+  taskForm.reset();
 });
 
 tasksContainer.addEventListener('click', (e) => {
@@ -43,3 +53,5 @@ statusFilter.addEventListener('change', (e) => {
   setFilterTask(e.target.value);
   updateView();
 });
+
+updateView();

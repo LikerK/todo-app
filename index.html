@@ -16,6 +16,16 @@
             <button id="add-task-button" type="submit">Добавить</button>
         </form>
 
+        <div class="filter">
+            <label for="status-filter">Показать задачи со статусом</label>
+            <select id="status-filter" name="filter">
+                <option value="all">Все</option>
+                <option value="new">Новая</option>
+                <option value="in-progress">В работе</option>
+                <option value="done">Готово</option>
+            </select>
+        </div>
+
         <div id="tasks"></div>
     </main>
     <script type="module" src="./js/app.js"></script>

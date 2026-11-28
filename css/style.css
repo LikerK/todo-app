@@ -50,7 +50,7 @@ body {
     gap: 1.5em;
 }
 
-/* --elements-- */
+/* --ELEMENTS-- */
 
 .select,
 .task-form__field > input {
@@ -78,7 +78,7 @@ body {
     outline-offset: 1px;
 }
 
-/* --form-- */
+/* --FORM-- */
 
 .task-form {
     display: flex;
@@ -105,7 +105,12 @@ body {
     font-weight: 700;
 }
 
-/* validate */
+/* VALIDATE */
+
+.task-form__field > input[aria-invalid="true"] {
+    outline: 1px solid var(--danger-color);
+    outline-offset: 1px;
+}
 
 .task-form__field > input[aria-invalid="true"]:focus-visible {
     outline: 1px solid var(--danger-color);

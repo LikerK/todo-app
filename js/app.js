@@ -7,6 +7,12 @@ import {
 } from './state.js';
 import { renderTasks, renderError } from './render.js';
 
+const SELECTORS = {
+  removeBtn: '.remove-task-btn',
+  status: '.task-status',
+  task: '.task',
+};
+
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const tasksContainer = document.getElementById('tasks');
@@ -14,7 +20,7 @@ const statusFilter = document.getElementById('status-filter');
 const errorSpan = document.getElementById('valid-message');
 
 const validateTitle = (value) => {
-  const isValid = value.trim().length > 0;
+  const isValid = !!value.trim();
   const message = isValid ? '' : 'Поле не должно быть пустым';
   
   return { isValid, message };
@@ -38,26 +44,27 @@ taskForm.addEventListener('submit', (e) => {
 });
 
 tasksContainer.addEventListener('click', (e) => {
-  const btn = e.target.closest('.remove-task-btn');
+  const btn = e.target.closest(SELECTORS.removeBtn);
   if (!btn) return;
-  const taskId = btn.closest('.task').dataset.id;
+  const taskId = btn.closest(SELECTORS.task).dataset.id;
   if (!taskId) return;
   removeTask(taskId);
   updateView();
 });
 
-tasksContainer.addEventListener('change', (e) => {
-  const select = e.target.closest('.task-status');
+tasksContainer.addEventListener('input', (e) => {
+  const select = e.target.closest(SELECTORS.status);
   if (!select) return;
-  const currentTask = e.target.closest('.task');
-  const taskId = currentTask.dataset.id;
+  const currentTask = select.closest(SELECTORS.task);
+  const taskId = currentTask?.dataset.id;
+  if (!taskId) return;
   const status = select.value;
   setStatusTask(taskId, status);
   updateView();
 });
 
 
-statusFilter.addEventListener('change', (e) => {
+statusFilter.addEventListener('input', (e) => {
   setFilterTask(e.target.value);
   updateView();
 });

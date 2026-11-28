@@ -19,8 +19,6 @@ export const renderTasks = (tasks, container) => {
 
 export const renderError = (input, span, message, isValid) => {
   span.textContent = message;
-  // const border = `1px solid ${isValid ? '#d1d5db' : '#ef4444'}`;
-  // input.style.border = border;
   input.setAttribute('aria-invalid', String(!isValid));
 }
 
@@ -47,10 +45,8 @@ const createTaskElement = (task) => {
   removeButton.textContent = 'Удалить';
   removeButton.classList.add('remove-task-btn');
 
-  toolsContainer.appendChild(selectStatus);
-  toolsContainer.appendChild(removeButton);
-  taskElement.appendChild(title);
-  taskElement.appendChild(toolsContainer);
+  toolsContainer.append(selectStatus, removeButton);
+  taskElement.append(title, toolsContainer);
 
   return taskElement;
 }

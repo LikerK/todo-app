@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -10,8 +10,8 @@
 
 <body>
     <main id="app">
-        <h1 id="title">Список задач</h1>
-        <form id="task-form" class="task-form">
+        <h1>Список задач</h1>
+        <form id="task-form" class="task-form" novalidate>
             <div class="task-form__row">
                 <div class="task-form__field">
                     <label for="task-input" class="task-form__label">Название задачи</label>
@@ -21,8 +21,8 @@
                         name="title"
                         type="text"
                         class="task-form__input"
-                        aria-describedby="task-error"
-                        aria-invalid="false"
+                        aria-describedby="valid-message"
+                        autocomplete="off"
                     />
                 </div>
                <button id="add-task-button" type="submit" class="task-form__submit">Добавить</button>
@@ -34,7 +34,7 @@
         <div id="filter">
             <label for="status-filter">Показать задачи со статусом</label>
             <select id="status-filter" class="select" name="filter">
-                <option value="all">Все</option>
+                <option value="all" selected>Все</option>
                 <option value="new">Новая</option>
                 <option value="in-progress">В работе</option>
                 <option value="done">Готово</option>

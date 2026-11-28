@@ -1,17 +1,23 @@
-import { addTask, removeTask, setStatusTask, setFilterTask, getVisibleTasks } from './state.js';
-import { renderTasks } from './render.js';
+import { 
+  addTask,
+  removeTask,
+  setStatusTask,
+  setFilterTask,
+  getVisibleTasks,
+} from './state.js';
+import { renderTasks, renderError } from './render.js';
 
 const taskForm = document.getElementById('task-form');
 const taskInput = document.getElementById('task-input');
 const tasksContainer = document.getElementById('tasks');
 const statusFilter = document.getElementById('status-filter');
-const errorSpan = document.getElementById('task-error');
+const errorSpan = document.getElementById('valid-message');
 
-const validate = (value) => {
+const validateTitle = (value) => {
   const isValid = value.trim().length > 0;
-  errorSpan.textContent = isValid ? '' : 'Поле не должно быть пустым';
-  taskInput.setAttribute('aria-invalid', String(!isValid));
-  return isValid;
+  const message = isValid ? '' : 'Поле не должно быть пустым';
+  
+  return { isValid, message };
 }
 
 const updateView = () => {
@@ -23,8 +29,10 @@ taskForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const formData = new FormData(taskForm);
   const title = formData.get('title') ?? '';
-  if (!validate(title)) return
-  addTask(title);
+  const { isValid, message } = validateTitle(title);
+  renderError(taskInput, errorSpan, message, isValid);
+  if (!isValid) return
+  addTask(title.trim());
   updateView();
   taskForm.reset();
 });

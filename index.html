@@ -5,27 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Список задач</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
     <main id="app">
         <h1 id="title">Список задач</h1>
-        <p>Название задачи</p>
-        <form id="task-form">
-            <input 
-                id="task-input"
-                name="title"
-                type="text"
-                aria-describedby="task-error"
-                aria-invalid="false"
-            />
-            <span id="task-error" class="error" role="alert"></span>
-            <button id="add-task-button" type="submit">Добавить</button>
+        <form id="task-form" class="task-form">
+            <div class="task-form__row">
+                <div class="task-form__field">
+                    <label for="task-input" class="task-form__label">Название задачи</label>
+                    <input 
+                        id="task-input"
+                        placeholder="Например, прочитать статью"
+                        name="title"
+                        type="text"
+                        class="task-form__input"
+                        aria-describedby="task-error"
+                        aria-invalid="false"
+                    />
+                </div>
+               <button id="add-task-button" type="submit" class="task-form__submit">Добавить</button>
+            </div>
+
+            <span id="valid-message" class="error task-form__error" role="alert"></span>
         </form>
 
-        <div class="filter">
+        <div id="filter">
             <label for="status-filter">Показать задачи со статусом</label>
-            <select id="status-filter" name="filter">
+            <select id="status-filter" class="select" name="filter">
                 <option value="all">Все</option>
                 <option value="new">Новая</option>
                 <option value="in-progress">В работе</option>
